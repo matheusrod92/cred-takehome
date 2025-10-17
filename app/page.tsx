@@ -1,3 +1,5 @@
+import { Board } from "@/components/board";
+
 export default function Home() {
-  return <div>Hello World</div>;
+  return <Board />;
 }
