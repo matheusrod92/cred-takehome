@@ -1,21 +1,25 @@
-export type UUID = `${string}-${string}-${string}-${string}-${string}`;
-
 export type ActionType =
   | "CREATE"
   | "UPDATE_DESCRIPTION"
   | "UPDATE_TITLE"
+  | "MOVED_TO_COLUMN"
   | "DELETE";
 
 export type Action = {
-  id: UUID;
+  id: string;
   type: ActionType;
   timestamp: Date;
+  columnId?: string;
+  columnTitle?: string;
+  fromColumnId?: string;
+  fromColumnTitle?: string;
 };
 
 export type Task = {
-  id: UUID;
+  id: string;
   title: string;
   description?: string;
+  columnId: string;
   actions: Action[];
   order: number;
   createdAt: Date;
@@ -23,17 +27,9 @@ export type Task = {
 };
 
 export type Column = {
-  id: UUID;
+  id: string;
   title: string;
-  tasks: Record<Task["id"], Task>;
   order: number;
-  createdAt: Date;
-  updatedAt?: Date;
-};
-
-export type Board = {
-  id: UUID;
-  columns: Record<Column["id"], Column>;
   createdAt: Date;
   updatedAt?: Date;
 };
