@@ -18,11 +18,16 @@ import { Task } from "./task";
 type ColumnProps = {
   column: ColumnType;
   activeTaskColumnId: string | null;
+  searchKeyword?: string;
 };
 
-export function Column({ column, activeTaskColumnId }: ColumnProps) {
+export function Column({
+  column,
+  activeTaskColumnId,
+  searchKeyword,
+}: ColumnProps) {
   const deleteColumn = useStore((state) => state.deleteColumn);
-  const tasks = useColumnTasks(column.id);
+  const tasks = useColumnTasks(column.id, searchKeyword);
 
   const { setNodeRef, isOver } = useDroppable({
     id: `column:${column.id}`,

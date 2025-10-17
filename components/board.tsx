@@ -19,6 +19,8 @@ import type { Task as TaskType } from "@/lib/types";
 import { AddColumnDialog } from "./add-column-dialog";
 import { Column } from "./column";
 import { Task } from "./task";
+import { Card } from "./ui/card";
+import { Input } from "./ui/input";
 
 export function Board() {
   const columns = useStore((state) => state.columns);
@@ -26,6 +28,7 @@ export function Board() {
   const maxTaskOrder = useStore((state) => state.maxTaskOrder);
   const moveTask = useStore((state) => state.moveTask);
   const reorderTask = useStore((state) => state.reorderTask);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const [activeTask, setActiveTask] = useState<{
     task: TaskType;
@@ -97,12 +100,22 @@ export function Board() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex h-screen w-full gap-4 overflow-x-auto p-8">
+      <div className="px-8 pt-4">
+        <Card className="p-4 max-w-[500px] mx-auto">
+          <Input
+            placeholder="Search tasks..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+        </Card>
+      </div>
+      <div className="flex h-[calc(100vh-86px)] w-full gap-4 overflow-x-auto p-8">
         {sortedColumns.map((column) => (
           <Column
             key={column.id}
             column={column}
             activeTaskColumnId={activeTask?.columnId ?? null}
+            searchKeyword={searchKeyword}
           />
         ))}
         <div className="flex-shrink-0">
