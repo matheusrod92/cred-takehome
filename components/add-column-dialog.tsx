@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,6 +31,7 @@ export function AddColumnDialog({ children }: AddColumnDialogProps) {
     addColumn(title.trim());
     setTitle("");
     setOpen(false);
+    toast.success("Column added successfully");
   };
 
   return (

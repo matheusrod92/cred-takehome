@@ -6,6 +6,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStore } from "@/lib/store";
@@ -27,6 +28,11 @@ export function Column({ column, activeTaskColumnId }: ColumnProps) {
     id: `column:${column.id}`,
   });
 
+  const handleDeleteColumn = () => {
+    deleteColumn(column.id);
+    toast.success("Column deleted");
+  };
+
   const isDraggingFromDifferentColumn =
     !!activeTaskColumnId && activeTaskColumnId !== column.id;
   const showDropIndicator = isOver && isDraggingFromDifferentColumn;
@@ -34,15 +40,11 @@ export function Column({ column, activeTaskColumnId }: ColumnProps) {
   const taskIds = tasks.map((task) => `${task.id}:${column.id}`);
 
   return (
-    <Card className="flex w-80 flex-shrink-0 flex-col">
+    <Card className="flex w-60 md:w-80 flex-shrink-0 flex-col">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>{column.title}</CardTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => deleteColumn(column.id)}
-          >
+          <Button variant="ghost" size="icon" onClick={handleDeleteColumn}>
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>

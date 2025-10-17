@@ -126,7 +126,7 @@ export function Task({
         style={style}
         {...attributes}
         {...listeners}
-        className="cursor-grab active:cursor-grabbing"
+        className="cursor-grab touch-none active:cursor-grabbing"
         onClick={handleCardClick}
       >
         <CardHeader>
